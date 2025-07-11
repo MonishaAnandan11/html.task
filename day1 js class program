@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+   
+   </form><form >
+    <label for="">enter the first value
+    <input type="number">
+    </label><br>
+    <label for="">enter the second value
+    <input type="number">
+    </label><br>
+    <button>add</button>
+    <button>sub</button>
+
+
+</head>
+<body>
+    
+</body>
+</html>
+
+index.js file program
+
+var x=11;
+let name='js'
+const iscloudy=true;
+
+console.log(x+" "+name+" "+iscloudy)
+
+
+
+
+
+function add(){
+    console.log("this is a function"+(a+b));
+}
+add(4,5);
+
+let a=parseInt(prompt("enter the first value"));
+let b=parseInt(prompt("enter the second value"));
+
+alert(a+b);
