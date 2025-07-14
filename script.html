@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<>, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        }
+        input,select,button{
+            margin:10px;
+            padding:10px;
+        }
+    </style>
+
+</head>
+<body>
+    <h1> calculater using javascript</h1>
+    <input type="number"placeholder="enter the value1" id="num1">
+    <input type="number"placeholder="enter the value2" id="num2"><Br>
+    <select id="opertions">
+        <option value="add">add</option>
+        <option value="multiplication">multiplication</option>
+    </select>
+    <button onclick="calculate"</button>
+    <div id="result"</div>
+    <script>
+        function calculate(){
+        let num1=parseInt(document.getElementById("num1").value);
+        let num2= parseInt(document.getElementById("num2").value2);
+    let opertions=parseInt(document.getAnimations("opertions").value);
+    let result;
+    if(isNaN(num1))||isNaN(num2)){
+        result="enter the valid num";
+    }
+    else{
+        switch(operations){
+            case "add":result=num1+num2;
+            break;
+            case "multiplication:result=num1+num2;"
+            break;
+        }
+        document.getElementById("result").innertext="result is"+" "result;
+
+    }
+    </script>
+</body>
+</html>
