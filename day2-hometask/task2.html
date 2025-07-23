@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //while statement
+        console.log("-----while statement-----")
+        let i = 1;
+        while (i <= 10) {
+        console.log(i);
+        i++;
+        }
+
+        //do-while statement
+        console.log("-----do-while statement-----")
+        let userInput;
+        do {
+            userInput = prompt("Enter a number between 1 and 10:");
+        } while (isNaN(userInput) || userInput < 1 || userInput > 10);
+
+        alert(`You entered a valid number: ${userInput}`);
+
+        //prompt user until a correct input is given
+        console.log("-----prompt user until a correct input is given-----")
+        let sum = 0;
+        for (let i = 1; i <= 5; i++) {
+              sum += i;
+        }
+        console.log("Sum of first 5 natural numbers is:", sum);
+
+
+        // nested for loop: multiplication table 1 to 3
+        for (let row = 1; row <= 3; row++) {
+             for (let col = 1; col <= 5; col++) {
+                 console.log(`${row} x ${col} = ${row * col}`);
+             }
+              console.log("-----");
+        }
+    </script>
+</body>
+</html>
