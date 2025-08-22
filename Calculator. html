@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator using JavaScript</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        input, select, button {
+            margin: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+         {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Calculator using JavaScript</h1>
+    
+    <input type="number" placeholder="Enter value 1" id="num1">
+    <input type="number" placeholder="Enter value 2" id="num2"><br>
+    
+    <select id="operations">
+        <option value="add">Addition</option>
+        <option value="subtraction">Subtraction</option>
+        <option value="multiplication">Multiplication</option>
+        <option value="division">Division</option>
+    </select>
+    
+    <button onclick="calculate()">Calculate</button>
+    
+    <div id="result"></div>
+
+    <script>
+        function calculate() {
+            let num1 = parseFloat(document.getElementById("num1").value);
+            let num2 = parseFloat(document.getElementById("num2").value);
+            let operation = document.getElementById("operations").value;
+            let result;
+
+            if (isNaN(num1) || isNaN(num2)) {
+                result = "Enter valid numbers!";
+            } else {
+                switch (operation) {
+                    case "add":
+                        result = num1 + num2;
+                        break;
+                    case "subtraction":
+                        result = num1 - num2;
+                        break;
+                    case "multiplication":
+                        result = num1 * num2;
+                        break;
+                    case "division":
+                        if (num2 === 0) {
+                            result = "Cannot divide by zero!";
+                        } else {
+                            result = num1 / num2;
+                        }
+                        break;
+                    default:
+                        result = "Invalid operation";
+                }
+            }
+            document.getElementById("result").innerText = "Result is: " + result;
+        }
+    </script>
+</body>
+</html>
