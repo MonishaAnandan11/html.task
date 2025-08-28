@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+      <title>Styled Clock</title>
+      <style>
+        body {
+          margin: 0;
+          padding: 0;
+          background-color: #0a0a0a; 
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+    
+        #clock { 
+          font-size: 60px;
+          font-weight: initial;
+          background-color: #080808; 
+          padding: 20px 40px;
+          border-radius: 15px;
+          box-shadow: 0 0 30px #00ffcc; 
+          text-shadow: 0 0 10px #00ffcc;
+          box-shadow: 0 0px 30px #00ffcc(239,5,5,0.5);
+        }
+      </style>
+    
+
+</head>
+<body>
+    <div id="clock">loading...</div>
+
+    <script>
+        function updateClock(){
+        const now=new Date()
+        console.log(now)
+
+        let hours=now.getHours();
+        console.log(hours);
+
+        const minutes=now.getMinutes();
+        console.log(minutes);
+
+        const seconds=now.getSeconds();
+        console.log(seconds);
+
+        const ampm=hours>=12 ?'pm':'am'
+        console.log(ampm);
+
+        hours=hours % 12
+        hours=hours ? hours:12;
+        
+        const hh=String(hours).padStart(2,"0");
+        console.log(hh);
+        const mm=String(minutes).padStart(2,"0");
+        console.log(mm);
+        const ss=String(seconds).padStart(2,"0");
+        console.log(ss);
+
+        const timeString=`${hh}:${mm}:${ss}:${ampm}`;
+        document.getElementById("clock").innerText=timeString;
+        }
+        updateClock();
+        setInterval(updateClock,1000)
+
+    </script>   
+</body>
+</html>
