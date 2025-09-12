@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        localStorage.setItem("username","mon");
+        console.log(localStorage.getItem("username"));
+        localStorage.removeItem("username");
+        localStorage.clear()
+
+        //storing array values in localstorage
+        let detail=["mon","18","developer"];
+        localStorage.setItem("detail",JSON.stringify(detail))
+        let strddeeta=JSON.parse(localStorage.getItem("detail"));
+        console.log(strddeeta)
+
+        //array of objects
+        let markes=[
+            {
+                "math":60,
+                "js":0,
+            }
+        ];
+        localStorage.setItem("marks",JSON.stringify(marks));
+        let strddeeta=JSON.parse(localStorage.getItem("markes"));
+        console.log(strddeeta);
+    
+
+        //sessionStorage
+        sessionStorage.setItem("key","value");
+        sessionStorage.getItem("key")
+    </script>
+        
+
+</body>
+</html>
