@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //definition: A set is a collection of uniqe values.It automatically removes duplicates
+        //syntax: let mySet = new Set([iterable]);
+
+        // let email= new Set([]);
+        // email.add("js@gmail.com");
+        // email.add("python@gmail.com");
+        // email.add("java@gmail.com");
+        // email.add("java@gmail.com");
+        // console.log(email)
+        //email.delete("java@gmail.com");
+        //console.log(email)
+        //email.clear()
+        // //console.log(email)
+        // for(let mailId of email){
+        //     console.log(mailId)
+        // }
+        // email.forEach(x=>{
+        //     console.log(x)
+        // })
+        // let admin=new Set (["write","read","delete"]);
+        // let user=new Set (["read"]);
+        
+        // function haspermission(role,granted){
+        //     return role.has(granted)
+        // }
+        // console.log(haspermission(admin,"delete"));
+        // console.log(haspermission(user,"delete"));
+
+        // let SetA=new Set([1,8,5,4,9]);
+        // let SetB=new Set([2,1,8,9,4,3]);
+        // let union=new Set([...SetA,...SetB]);
+        // console.log(union)
+        // let intersection=new Set([...SetA].filter(x=>SetB.has(x)));
+        // console.log(intersection)
+        // let diff=new Set([...SetA].filter(x=>!SetB.has(x)));
+        // console.log(diff)
+
+        // //entries() method
+
+        
+        // let fruits=new Set(["apple","banana"]);
+
+        // let entries=fruits.entries();
+        // for(let entry of entries){
+        //     console.log(entry)
+        // }
+
+        //WeakMap
+        //A javaScript WeakMap is a collection of key/value pairs
+        //where the keys must be object
+
+        // let user1={name:"java"};
+        // let user2={name:"python"};
+        // let mymap=new Map()
+        // mymap.set(user1,"welcome");
+        // mymap.set(user2,"welcome python!")
+        // console.log(mymap)
+         
+        // for(let map of mymap){
+        //     console.log(map)
+        //}
+
+        let user1={name:"java"};
+        let user2={name:"python"};
+        let mymap=new WeakMap()
+        mymap.set(user1,"welcome");
+        mymap.set(user2,"welcome python!")
+        console.log(mymap.get(user1))
+
+    </script>
+    
+    
+</body>
+</html>
