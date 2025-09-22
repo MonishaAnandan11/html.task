@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vendor Master Dashboard</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    :root {
+      --primary: #34495e;
+      --secondary: #2980b9;
+      --accent: #e74c3c;
+      --success: #27ae60;
+      --warning: #f39c12;
+      --light: #f8f9fa;
+      --white: #ffffff;
+      --shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+      --radius: 12px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background: var(--light);
+    }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px;
+      background: var(--primary);
+      color: var(--white);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .sidebar h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      font-size: 1.3rem;
+    }
+
+    .sidebar a {
+      color: var(--white);
+      text-decoration: none;
+      padding: 0.8rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-radius: var(--radius);
+      transition: background 0.3s;
+    }
+
+    .sidebar a:hover {
+      background: var(--secondary);
+    }
+
+    /* Main Content */
+    .main {
+      flex: 1;
+      padding: 2rem;
+    }
+
+    header {
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: var(--white);
+      padding: 1rem;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      margin-bottom: 2rem;
+    }
+
+    header h1 {
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* Report Cards */
+    .report-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .stat-card .icon {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-card .value {
+      font-size: 2rem;
+      font-weight: bold;
+    }
+
+    .stat-card .label {
+      color: #666;
+      margin-top: 0.3rem;
+    }
+
+    /* Colors */
+    .duplicates { border-top: 5px solid var(--success); }
+    .missing { border-top: 5px solid var(--warning); }
+    .standardized { border-top: 5px solid var(--secondary); }
+    .inactive { border-top: 5px solid var(--accent); }
+
+    /* Charts */
+    .chart-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .chart-box {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1rem;
+    }
+
+    .chart-box h3 {
+      text-align: center;
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+      color: var(--primary);
+    }
+
+    footer {
+      margin-top: 2rem;
+      text-align: center;
+      color: #888;
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 768px) {
+      .chart-container {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <h2><i class="fas fa-database"></i> VendorApp</h2>
+    <a href="./index.html"><i class="fas fa-upload"></i> Upload Data</a>
+    <a href="#"><i class="fas fa-broom"></i> Clean Data</a>
+    <a href="#"><i class="fas fa-chart-line"></i> Dashboard</a>
+    <a href="#"><i class="fas fa-cog"></i> Settings</a>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main">
+    <header>
+      <h1><i class="fas fa-chart-pie"></i> Vendor Master Dashboard</h1>
+    </header>
+
+    <div class="report-grid">
+      <div class="stat-card duplicates">
+        <div class="icon"><i class="fas fa-copy" style="color:#27ae60;"></i></div>
+        <div class="value" id="dupCount">0</div>
+        <div class="label">Duplicates Removed</div>
+      </div>
+      <div class="stat-card missing">
+        <div class="icon"><i class="fas fa-tasks" style="color:#f39c12;"></i></div>
+        <div class="value" id="missingCount">0</div>
+        <div class="label">Missing Fields Fixed</div>
+      </div>
+      <div class="stat-card standardized">
+        <div class="icon"><i class="fas fa-check-circle" style="color:#2980b9;"></i></div>
+        <div class="value" id="standardizedCount">0</div>
+        <div class="label">Standardized Records</div>
+      </div>
+      <div class="stat-card inactive">
+        <div class="icon"><i class="fas fa-flag" style="color:#e74c3c;"></i></div>
+        <div class="value" id="inactiveCount">0</div>
+        <div class="label">Inactive Vendors</div>
+      </div>
+    </div>
+
+    <div class="chart-container">
+      <div class="chart-box">
+        <h3>Data Cleaning Distribution</h3>
+        <canvas id="pieChart"></canvas>
+      </div>
+      <div class="chart-box">
+        <h3>Cleaning Metrics Comparison</h3>
+        <canvas id="barChart"></canvas>
+      </div>
+    </div>
+
+    <footer>
+      <p>&copy; 2025 Vendor Master Dashboard | Designed for Analytics</p>
+    </footer>
+  </div>
+
+  <script>
+    const report = JSON.parse(localStorage.getItem("vendorReport")) || {
+      duplicates: 10,
+      missing: 15,
+      standardized: 25,
+      inactive: 5
+    };
+
+    // Update Stat Cards
+    document.getElementById("dupCount").innerText = report.duplicates;
+    document.getElementById("missingCount").innerText = report.missing;
+    document.getElementById("standardizedCount").innerText = report.standardized;
+    document.getElementById("inactiveCount").innerText = report.inactive;
+
+    // Charts
+    const pieCtx = document.getElementById("pieChart").getContext("2d");
+    new Chart(pieCtx, {
+      type: "doughnut",
+      data: {
+        labels: ["Duplicates", "Missing", "Standardized", "Inactive"],
+        datasets: [{
+          data: [report.duplicates, report.missing, report.standardized, report.inactive],
+          backgroundColor: ["#27ae60", "#f39c12", "#2980b9", "#e74c3c"]
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { position: "bottom" }
+        }
+      }
+    });
+
+    const barCtx = document.getElementById("barChart").getContext("2d");
+    new Chart(barCtx, {
+      type: "bar",
+      data: {
+        labels: ["Duplicates", "Missing", "Standardized", "Inactive"],
+        datasets: [{
+          label: "Records",
+          data: [report.duplicates, report.missing, report.standardized, report.inactive],
+          backgroundColor: ["#27ae60", "#f39c12", "#2980b9", "#e74c3c"]
+        }]
+      },
+      options: {
+        plugins: {
+          legend: { display: false }
+        },
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+  </script>
+</body>
+</html>

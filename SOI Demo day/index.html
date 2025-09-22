@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vendor Master Cleaning</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #2c3e50;
+      --secondary: #3498db;
+      --accent: #e74c3c;
+      --light: #ecf0f1;
+      --dark: #2c3e50;
+      --success: #2ecc71;
+      --warning: #f39c12;
+      --gray: #95a5a6;
+      --white: #ffffff;
+      --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      --border-radius: 8px;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    
+    body {
+      background-color: #f8f9fa;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+      color: var(--white);
+      padding: 5px;
+      box-shadow: var(--shadow);
+    }
+    
+    header h1 {
+      text-align: center;
+      font-weight: 600;
+      font-size: 2.2rem;
+    }
+    
+    .container {
+      max-width: auto;
+      margin: 2rem auto;
+      padding: 0 1.5rem;
+    }
+    
+    .card {
+      background: var(--white);
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+    }
+    
+    h2 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-weight: 600;
+      border-bottom: 2px solid var(--light);
+      padding-bottom: 0.5rem;
+    }
+    
+    h3 {
+      color: var(--secondary);
+      margin: 1.5rem 0 1rem;
+      font-weight: 600;
+    }
+    
+    .upload-area {
+      border: 2px dashed var(--gray);
+      border-radius: var(--border-radius);
+      padding: 2rem;
+      text-align: center;
+      margin: 1.5rem 0;
+      transition: all 0.3s ease;
+      background-color: #fafafa;
+    }
+    
+    .upload-area:hover {
+      border-color: var(--secondary);
+      background-color: #f0f8ff;
+    }
+    
+    .upload-area i {
+      font-size: 2.5rem;
+      color: var(--secondary);
+      margin-bottom: 1rem;
+    }
+    
+    .file-input {
+      display: none;
+    }
+    
+    .file-label {
+      display: block;
+      background: var(--secondary);
+      color: white;
+      padding: 15px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      font-weight: 200;
+    }
+    
+    .file-label:hover {
+      background: #2980b9;
+    }
+    
+    .note {
+      background-color: #fff8e1;
+      border-left: 4px solid var(--warning);
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 4px;
+      font-size: 0.9rem;
+    }
+    
+    .btn-group {
+      display: flex;
+      gap: 1rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+    
+    button {
+      padding: 0.8rem 1.5rem;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-weight: 500;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+    
+    button.primary {
+      background: var(--secondary);
+      color: white;
+    }
+    
+    button.primary:hover {
+      background: #2980b9;
+      transform: translateY(-2px);
+    }
+    
+    button.secondary {
+      background: var(--light);
+      color: var(--dark);
+    }
+    
+    button.secondary:hover {
+      background: #dfe6e9;
+    }
+    
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      border-radius: var(--border-radius);
+      overflow: hidden;
+    }
+    
+    th, td {
+      padding: 0.75rem 1rem;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+    }
+    
+    th {
+      background-color: var(--primary);
+      color: white;
+      font-weight: 500;
+      position: sticky;
+      top: 0;
+    }
+    
+    tr:nth-child(even) {
+      background-color: #f8f9fa;
+    }
+    
+    tr:hover {
+      background-color: #e8f4fc;
+    }
+    
+    .table-container {
+      overflow-x: auto;
+      max-height: 400px;
+      overflow-y: auto;
+      margin: 1rem 0;
+      border: 1px solid #ddd;
+      border-radius: var(--border-radius);
+    }
+    
+    .stats {
+      display: flex;
+      gap: 1rem;
+      margin: 1.5rem 0;
+      flex-wrap: wrap;
+    }
+    
+    .stat-card {
+      flex: 1;
+      min-width: 200px;
+      background: white;
+      padding: 1rem;
+      border-radius: var(--border-radius);
+      box-shadow: var(--shadow);
+      text-align: center;
+    }
+    
+    .stat-card i {
+      font-size: 2rem;
+      color: var(--secondary);
+      margin-bottom: 0.5rem;
+    }
+    
+    .stat-value {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: var(--primary);
+    }
+    
+    .stat-label {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    
+    .progress-bar {
+      height: 6px;
+      background-color: #e0e0e0;
+      border-radius: 3px;
+      overflow: hidden;
+      margin: 1rem 0;
+    }
+    
+    .progress {
+      height: 100%;
+      background-color: var(--success);
+      width: 0%;
+      transition: width 0.5s ease;
+    }
+    
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      margin-top: 2rem;
+      background: var(--dark);
+      color: white;
+    }
+    
+    @media (max-width: 768px) {
+      .btn-group {
+        flex-direction: column;
+      }
+      
+      .stat-card {
+        min-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1><i class="fas fa-broom"></i> Vendor Master Cleaning</h1>
+  </header>
+
+  <div class="container">
+    <div class="card">
+      <h2>1. Upload Vendor Data (CSV)</h2>
+      <div class="upload-area">
+        <i class="fas fa-cloud-upload-alt"></i>
+        <p>Drag & drop your CSV file here or click to browse</p>
+        <input type="file" id="fileInput" accept=".csv" class="file-input">
+        <label for="fileInput" class="file-label"><i class="fas fa-file-upload"></i> Choose File</label>
+      </div>
+      <div class="note">
+        <p><i class="fas fa-bolt"></i> Or use default sample data if no file uploaded.</p>
+      </div>
+    </div>
+
+    <div class="stats">
+      <div class="stat-card">
+        <i class="fas fa-database"></i>
+        <div class="stat-value" id="totalVendors">0</div>
+        <div class="stat-label">Total Vendors</div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-check-circle"></i>
+        <div class="stat-value" id="cleanVendors">0</div>
+        <div class="stat-label">Clean Records</div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-exclamation-triangle"></i>
+        <div class="stat-value" id="issuesFound">0</div>
+        <div class="stat-label">Issues Found</div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>Raw Vendor Data</h3>
+      <div class="table-container">
+        <table id="rawTable">
+          <thead>
+            <tr>
+              <th>Vendor_ID</th>
+              <th>Vendor_Name</th>
+              <th>Contact_Person</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Country</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="btn-group">
+      <button class="primary" onclick="cleanData()"><i class="fas fa-magic"></i> Run Data Cleaning</button>
+      <a href="dashboard.html"><button class="secondary"><i class="fas fa-chart-bar"></i> Go to Dashboard</button></a>
+    </div>
+
+    <div class="progress-bar">
+      <div class="progress" id="cleaningProgress"></div>
+    </div>
+
+    <div class="card">
+      <h3>Cleaned Vendor Data</h3>
+      <div class="table-container">
+        <table id="cleanedTable">
+          <thead>
+            <tr>
+              <th>Vendor_ID</th>
+              <th>Vendor_Name</th>
+              <th>Contact_Person</th>
+              <th>Phone</th>
+              <th>Email</th>
+              <th>Country</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <p>Vendor Master Cleaning Tool &copy; 2023</p>
+  </footer>
+
+  <script>
+    // Sample data for demonstration
+    const sampleData = [
+      ["V001", "ABC Suppliers", "John Doe", "123-456-7890", "john@abc.com", "USA", "Active"],
+      ["V002", "XYZ Distributors", "Jane Smith", "555-123-4567", "jane@xyz.com", "Canada", "Active"],
+      ["V003", "TechGadgets Inc", "Robert Johnson", "(987)654-3210", "robert@techgadgets.com", "UK", "Inactive"],
+      ["V004", "Global Merchants", "Sarah Wilson", "1-800-123-4567", "sarah.global.com", "Australia", "Pending"],
+      ["V005", "Quality Goods Ltd", "Michael Brown", "+44 20 7946 0958", "michael@qualitygoods.co.uk", "UK", "Active"]
+    ];
+
+    // Initialize with sample data
+    document.addEventListener('DOMContentLoaded', function() {
+      populateTable('rawTable', sampleData);
+      updateStats(sampleData);
+    });
+
+    // File upload handling
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+      const file = event.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          const content = e.target.result;
+          const data = parseCSV(content);
+          populateTable('rawTable', data);
+          updateStats(data);
+        };
+        reader.readAsText(file);
+      }
+    });
+
+    // Function to parse CSV content
+    function parseCSV(content) {
+      const lines = content.split('\n');
+      const result = [];
+      
+      for (let i = 1; i < lines.length; i++) {
+        if (lines[i].trim() !== '') {
+          result.push(lines[i].split(','));
+        }
+      }
+      
+      return result;
+    }
+
+    // Function to populate table with data
+    function populateTable(tableId, data) {
+      const table = document.getElementById(tableId);
+      const tbody = table.querySelector('tbody');
+      tbody.innerHTML = '';
+      
+      data.forEach(row => {
+        const tr = document.createElement('tr');
+        row.forEach(cell => {
+          const td = document.createElement('td');
+          td.textContent = cell;
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Function to update statistics
+    function updateStats(data) {
+      document.getElementById('totalVendors').textContent = data.length;
+      // For demo purposes - in a real app, you would calculate these values
+      document.getElementById('cleanVendors').textContent = Math.floor(data.length * 0.7);
+      document.getElementById('issuesFound').textContent = Math.floor(data.length * 0.3);
+    }
+
+    // Function to simulate data cleaning
+    function cleanData() {
+      const progressBar = document.getElementById('cleaningProgress');
+      progressBar.style.width = '0%';
+      
+      // Simulate cleaning process with progress
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += 5;
+        progressBar.style.width = `${progress}%`;
+        
+        if (progress >= 100) {
+          clearInterval(interval);
+          
+          // For demo purposes - in a real app, you would process the actual data
+          const cleanedData = sampleData.map(row => [...row]);
+          
+          // Make some changes to simulate cleaning
+          cleanedData[3][4] = "sarah@global.com"; // Fixed email
+          cleanedData[4][2] = "Mike Brown"; // Standardized name
+          
+          populateTable('cleanedTable', cleanedData);
+          updateStats(cleanedData);
+        }
+      }, 100);
+    }
+
+    // Drag and drop functionality
+    const uploadArea = document.querySelector('.upload-area');
+    uploadArea.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      uploadArea.style.borderColor = '#3498db';
+      uploadArea.style.backgroundColor = '#e3f2fd';
+    });
+
+    uploadArea.addEventListener('dragleave', () => {
+      uploadArea.style.borderColor = '#95a5a6';
+      uploadArea.style.backgroundColor = '#fafafa';
+    });
+
+    uploadArea.addEventListener('drop', (e) => {
+      e.preventDefault();
+      uploadArea.style.borderColor = '#95a5a6';
+      uploadArea.style.backgroundColor = '#fafafa';
+      
+      const file = e.dataTransfer.files[0];
+      if (file && file.type === 'text/csv') {
+        document.getElementById('fileInput').files = e.dataTransfer.files;
+        
+        const event = new Event('change');
+        document.getElementById('fileInput').dispatchEvent(event);
+      } else {
+        alert('Please drop a valid CSV file');
+      }
+    });
+  </script>
+</body>
+</html>
